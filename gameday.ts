@@ -60,26 +60,15 @@ class GamedayUtils {
 
 export class Gameday {
 
-  async GetThisWeeksScores() : Promise<TwinsGames> {
+  async GetThisWeeksScores( date = GamedayUtils.yesterday() ) : Promise<TwinsGames> {
     let endDate : Date;
     let startDate: Date;
-    endDate = GamedayUtils.yesterday();
+    endDate = date;
     while( endDate.getDay() !== 0 ) {
       endDate.setDate( endDate.getDate() + 1 );
     }
     startDate = new Date( endDate.toString() );
     startDate.setDate( endDate.getDate() - 6 );
-    return this.GetScores( startDate, endDate );
-  }
-
-  async GetScoresSincePreviousMonday( endDate = GamedayUtils.yesterday() ) : Promise<TwinsGames> {
-    let startDate : Date;
-
-    startDate = new Date( endDate.toString() );
-    while( startDate.getDay() !== 1 ) {
-      startDate.setDate( startDate.getDate() - 1 );
-    }
-
     return this.GetScores( startDate, endDate );
   }
 
@@ -118,7 +107,12 @@ export class Gameday {
           .then(
             function( schedule : string ) {
               let games : Array<any>;
-              games = JSON.parse( schedule ).data.games.game;
+              try {
+                games = JSON.parse( schedule ).data.games.game || [];
+              }
+              catch ( e ) {
+                games = [];
+              }
               for ( let i = 0; i < games.length; i++ ) {
                 let game : GamedayGame = games[ i ];
                 if ( GamedayUtils.isTwinsGame( game ) ) {

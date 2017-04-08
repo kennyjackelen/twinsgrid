@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Twins Weekly Run Board</title>
+    <base href="/{{ siteRoot }}"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" sizes="32x32" href="images/app-icon-32.png">
+    <link rel="shortcut icon" sizes="32x32" href="./images/app-icon-32.png">
 
     <meta name="theme-color" content="#fff">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
 
     <style>
       html,
@@ -86,6 +87,17 @@
       .column {
         margin-bottom: 2em;
       }
+      .nav-arrow {
+        color: hsl( 0, 0%, 46% );
+        text-decoration: none;
+        font-size: 75%;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+      .currentWeek {
+        width: 15em;
+        display: inline-block;
+      }
       @media (min-width: 750px) {
         body {
           font-size: 16px;
@@ -108,7 +120,13 @@
   <body>
     <div class="page-header">
       <h1>Twins Weekly Run Board</h1>
-      <h3>{{ formatDate StartDate weekday="short" day="numeric" month="short" }} - {{ formatDate EndDate weekday="short" day="numeric" month="short" }}</h3>
+      <h3>
+        <a href="./date/{{ prevWeek StartDate }}" class="nav-arrow">◀</a>
+        <span class="currentWeek">
+          {{ formatDate StartDate weekday="short" day="numeric" month="short" }} - {{ formatDate EndDate weekday="short" day="numeric" month="short" }}
+        </span>
+        <a href="./date/{{ nextWeek StartDate }}" class="nav-arrow">▶</a>
+      </h3>
     </div>
     <div class="page-container">
       <div class="column">
