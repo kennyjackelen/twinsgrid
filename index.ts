@@ -24,6 +24,9 @@ handlebars.registerHelper(
 
 initializeTemplate().then( startApp );
 
+app.use( '/manifest.json', express.static('./manifest.json') );
+app.use( '/images', express.static('images') );
+
 app.get('/', async function (req, res) {
   let g = new Gameday();
   let gs : TwinsGames = await g.GetThisWeeksScores();
