@@ -1,0 +1,225 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Twins Weekly Run Board</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0
+      }
+      body {
+        background-color: #FCFCFC;
+        color: #212121;
+        font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: 0.02em;
+        text-align: center;
+        display: flex;
+        flex-flow: column;
+      }
+      .page-header {
+        flex: 0 1 auto;
+      }
+      .page-container {
+        flex: 1 1 auto;
+      }
+      .results,
+      .scores {
+        display: inline-block;
+        border-radius: 4px;
+        box-shadow: 0 4px 16px 0 rgba(0,0,0,0.2);
+        background-color: #FFF;
+        padding: 1em;
+      }
+      .results th {
+        color: hsl( 0, 0%, 46% );
+        font-weight: normal;
+      }
+      .results th,
+      .results td {
+        padding: 0.5em 0.5em;
+      }
+      .scores th,
+      .scores td {
+        padding: 0.5em 0.5em;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+      }
+      .scores th {
+        color: hsl( 0, 0%, 46% );
+        font-weight: normal;
+        text-align: center;
+      }
+      #twins-{{ lastDigit TwinsTotal }},
+      #opponent-{{ lastDigit OpponentTotal }} {
+        font-weight: bold;
+        color: #212121;
+      }
+      .o-{{ lastDigit OpponentTotal }} .t-{{ lastDigit TwinsTotal }} {
+        background-color: #A5D6A7;
+        color: #1B5E20;
+      }
+      .rotated-text-container {
+        max-width: 2em;
+      }
+      .rotated-text {
+        transform: rotate(-90deg) translateY(-2em);
+        display: inline-block;
+        hyphens: none;
+      }
+      .column {
+        margin-bottom: 2em;
+      }
+      @media (max-width: 500px) {
+        body {
+          font-size: 75%;
+        }
+      }
+      @media (min-width: 800px) {
+        .results th,
+        .results td {
+          padding: 0.5em 2em;
+        }
+      }
+      @media (min-width: 1600px) {
+        .column {
+          flex: 1 1 auto;
+        }
+        .page-container {
+          display: flex;
+          flex-flow: column;
+          flex-direction:row;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>Twins Weekly Run Board</h1>
+      <h3>{{ formatDate StartDate weekday="short" day="numeric" month="short" }} - {{ formatDate EndDate weekday="short" day="numeric" month="short" }}</h3>
+    </div>
+    <div class="page-container">
+      <div class="column">
+        <table class="results">
+          <tr>
+            <th>Date</th>
+            <th>vs.</th>
+            <th>Status</th>
+            <th>Twins</th>
+            <th>Opponent</th>
+          </tr>
+          {{#each games}}
+          <tr>
+            <td>{{ formatDate GameDate weekday="short" day="numeric" month="short" }}</td>
+            <td>{{ OpponentName }}</td>
+            <td>
+              {{#if GameURL }}<a href="http://mlb.com{{ GameURL }}" target="_blank">{{/if}}
+              {{ GameStatus }}
+              {{#if GameURL }}</a>{{/if}}
+            </td>
+            <td>{{ TwinsScore }}</td>
+            <td>{{ OpponentScore }}</td>
+          </tr>
+          {{/each}}
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{ TwinsTotal }}</th>
+            <th>{{ OpponentTotal }}</th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="column">
+        <table class="scores">
+          <tr>
+            <th></th>
+            <th></th>
+            <th colspan="10">Twins</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th id="twins-9">9</th><th id="twins-4">4</th>
+            <th id="twins-7">7</th><th id="twins-6">6</th>
+            <th id="twins-3">3</th><th id="twins-8">8</th>
+            <th id="twins-0">0</th><th id="twins-2">2</th>
+            <th id="twins-1">1</th><th id="twins-5">5</th>
+          </tr>
+          <tr class="o-5 o-3">
+            <th rowspan="10" class="rotated-text-container"><span class="rotated-text">Opponents</span></th>
+            <th id="opponent-5">5</th>
+            <td rowspan="2" colspan="2" class="t-9 t-4">Greg Nielsen</td>
+            <td rowspan="2" colspan="2" class="t-7 t-6">Mark Kaltenbach</td>
+            <td rowspan="2" colspan="2" class="t-3 t-8">Greg Murray</td>
+            <td rowspan="2" colspan="2" class="t-0 t-2">John Edison</td>
+            <td rowspan="2" colspan="2" class="t-1 t-5">John Skaalarud</td>
+          </tr>
+          <tr>
+            <th id="opponent-3">3</th>
+          </tr>
+          <tr class="o-2 o-6">
+            <th id="opponent-2">2</th>
+            <td rowspan="2" colspan="2" class="t-9 t-4">Ed Hershberger</td>
+            <td rowspan="2" colspan="2" class="t-7 t-6">Tom Daly</td>
+            <td rowspan="2" colspan="2" class="t-3 t-8">Becki Folstrom</td>
+            <td rowspan="2" colspan="2" class="t-0 t-2">Joe Hamilton</td>
+            <td rowspan="2" colspan="2" class="t-1 t-5">Mike Austin</td>
+          </tr>
+          <tr>
+            <th id="opponent-6">6</th>
+          </tr>
+          <tr class="o-9 o-7">
+            <th id="opponent-9">9</th>
+            <td rowspan="2" colspan="2" class="t-9 t-4">Tim Quinlan</td>
+            <td rowspan="2" colspan="2" class="t-7 t-6">Chad Sherman</td>
+            <td rowspan="2" colspan="2" class="t-3 t-8">Greg Tautges</td>
+            <td rowspan="2" colspan="2" class="t-0 t-2">Jon Huston</td>
+            <td rowspan="2" colspan="2" class="t-1 t-5">Todd Sweeney</td>
+          </tr>
+          <tr>
+            <th id="opponent-7">7</th>
+          </tr>
+          <tr class="o-1 o-8">
+            <th id="opponent-1">1</th>
+            <td rowspan="2" colspan="2" class="t-9 t-4">Blair Kruschke</td>
+            <td rowspan="2" colspan="2" class="t-7 t-6">Dave Jackelen</td>
+            <td rowspan="2" colspan="2" class="t-3 t-8">Jim Garbe</td>
+            <td rowspan="2" colspan="2" class="t-0 t-2">Jim Mack</td>
+            <td rowspan="2" colspan="2" class="t-1 t-5">JLC</td>
+          </tr>
+          <tr>
+            <th id="opponent-8">8</th>
+          </tr>
+          <tr class="o-4 o-0">
+            <th id="opponent-4">4</th>
+            <td rowspan="2" colspan="2" class="t-9 t-4">Travis Tolzein</td>
+            <td rowspan="2" colspan="2" class="t-7 t-6">Dan Trizulny</td>
+            <td rowspan="2" colspan="2" class="t-3 t-8">Bridget Johnson</td>
+            <td rowspan="2" colspan="2" class="t-0 t-2">Don Backstrom</td>
+            <td rowspan="2" colspan="2" class="t-1 t-5">Dave Malone</td>
+          </tr>
+          <tr>
+            <th id="opponent-0">0</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <script>
+      //window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+      //ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+    </script>
+    <!--<script src="https://www.google-analytics.com/analytics.js" async defer></script>-->
+  </body>
+</html>
