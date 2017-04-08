@@ -24,10 +24,12 @@
         font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        letter-spacing: 0.02em;
         text-align: center;
         display: flex;
         flex-flow: column;
+        font-size: 75%;
+        font-size: 2vw;
+        letter-spacing: normal;
       }
       .page-header {
         flex: 0 1 auto;
@@ -49,7 +51,7 @@
       }
       .results th,
       .results td {
-        padding: 0.5em 0.5em;
+        padding: 0.5em 2em;
       }
       .scores th,
       .scores td {
@@ -84,16 +86,10 @@
       .column {
         margin-bottom: 2em;
       }
-      @media (max-width: 500px) {
+      @media (min-width: 750px) {
         body {
-          font-size: 75%;
-          letter-spacing: normal;
-        }
-      }
-      @media (min-width: 800px) {
-        .results th,
-        .results td {
-          padding: 0.5em 2em;
+          font-size: 16px;
+          letter-spacing: 0.02em;
         }
       }
       @media (min-width: 1600px) {
